@@ -1,8 +1,13 @@
 import Foundation
 import MapKit
 
+struct User: Codable {
+    let username: String
+    let password: String
+}
+
 /// Represents  a token that is returns when the user authenticates.
-struct Token {
+struct Token: Codable {
     let accessToken: String
     let tokenType: String
 }
@@ -32,7 +37,7 @@ struct Location: Sendable, Hashable {
     var latitude: Double
     var longitude: Double
     var address: String?
-
+    
     var coordinate: CLLocationCoordinate2D {
         return .init(latitude: latitude, longitude: longitude)
     }
