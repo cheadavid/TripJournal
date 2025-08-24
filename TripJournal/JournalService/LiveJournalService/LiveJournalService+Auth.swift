@@ -31,7 +31,7 @@ extension LiveJournalService {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
         
-        let (data, response) = try await session.data(for: request)
+        let (data, _) = try await session.data(for: request)
         let token = try JSONDecoder().decode(Token.self, from: data)
         
         self.token = token
@@ -56,7 +56,7 @@ extension LiveJournalService {
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpBody = formData
         
-        let (data, response) = try await session.data(for: request)
+        let (data, _) = try await session.data(for: request)
         let token = try JSONDecoder().decode(Token.self, from: data)
         
         self.token = token

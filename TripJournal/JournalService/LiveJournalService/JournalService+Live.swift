@@ -25,4 +25,60 @@ class LiveJournalService: JournalService {
         self.baseURL = baseURL
         self.session = session
     }
+    
+    // MARK: - Trip Management (Empty implementations for testing)
+    
+    func createTrip(with request: TripCreate) async throws -> Trip {
+        // TODO: Implement
+        fatalError("Not implemented yet")
+    }
+    
+    func getTrips() async throws -> [Trip] {
+        // TODO: Implement
+        fatalError("Not implemented yet")
+    }
+    
+    func getTrip(withId tripId: Trip.ID) async throws -> Trip {
+        // TODO: Implement
+        fatalError("Not implemented yet")
+    }
+    
+    func updateTrip(withId tripId: Trip.ID, and request: TripUpdate) async throws -> Trip {
+        // TODO: Implement
+        fatalError("Not implemented yet")
+    }
+    
+    func deleteTrip(withId tripId: Trip.ID) async throws {
+        // TODO: Implement
+        fatalError("Not implemented yet")
+    }
+    
+    // MARK: - Event Management (Empty implementations for testing)
+    
+    func createEvent(with request: EventCreate) async throws -> Event {
+        // TODO: Implement
+        fatalError("Not implemented yet")
+    }
+    
+    func updateEvent(withId eventId: Event.ID, and request: EventUpdate) async throws -> Event {
+        // TODO: Implement
+        fatalError("Not implemented yet")
+    }
+    
+    func deleteEvent(withId eventId: Event.ID) async throws {
+        // TODO: Implement
+        fatalError("Not implemented yet")
+    }
+    
+    // MARK: - Media Management (Empty implementations for testing)
+    
+    func createMedia(with request: MediaCreate) async throws -> Media {
+        // TODO: Implement
+        fatalError("Not implemented yet")
+    }
+    
+    func deleteMedia(withId mediaId: Media.ID) async throws {
+        // TODO: Implement
+        fatalError("Not implemented yet")
+    }
 }
