@@ -23,7 +23,7 @@ extension LiveJournalService {
     func register(username: String, password: String) async throws -> Token {
         let url = baseURL.appendingPathComponent("register")
         
-        let requestBody = User(username: username, password: password)
+        let requestBody = UserCreate(username: username, password: password)
         let jsonData = try JSONEncoder().encode(requestBody)
         
         var request = URLRequest(url: url)

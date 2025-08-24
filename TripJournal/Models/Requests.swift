@@ -1,5 +1,10 @@
 import Foundation
 
+struct UserCreate: Codable {
+    let username: String
+    let password: String
+}
+
 /// An object that can be used to create a new trip.
 struct TripCreate {
     let name: String
