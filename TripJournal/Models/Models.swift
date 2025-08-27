@@ -13,16 +13,22 @@ struct Token: Codable {
 }
 
 /// Represents a trip.
-struct Trip: Identifiable, Sendable, Hashable {
+struct Trip: Codable, Identifiable, Sendable, Hashable {
     var id: Int
     var name: String
     var startDate: Date
     var endDate: Date
     var events: [Event]
+    
+    enum CodingKeys: String, CodingKey {
+        case id, name, events
+        case startDate = "start_date"
+        case endDate = "end_date"
+    }
 }
 
 /// Represents an event in a trip.
-struct Event: Identifiable, Sendable, Hashable {
+struct Event: Codable, Identifiable, Sendable, Hashable {
     var id: Int
     var name: String
     var note: String?
@@ -30,10 +36,15 @@ struct Event: Identifiable, Sendable, Hashable {
     var location: Location?
     var medias: [Media]
     var transitionFromPrevious: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id, name, note, date, location, medias
+        case transitionFromPrevious = "transition_from_previous"
+    }
 }
 
 /// Represents a location.
-struct Location: Sendable, Hashable {
+struct Location: Codable, Sendable, Hashable {
     var latitude: Double
     var longitude: Double
     var address: String?
@@ -44,7 +55,7 @@ struct Location: Sendable, Hashable {
 }
 
 /// Represents a media with a URL.
-struct Media: Identifiable, Sendable, Hashable {
+struct Media: Codable, Identifiable, Sendable, Hashable {
     var id: Int
     var url: URL?
 }
