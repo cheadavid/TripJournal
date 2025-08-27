@@ -52,12 +52,17 @@ extension LiveJournalService {
         
         var formComponents = URLComponents()
         formComponents.queryItems = [
-            URLQueryItem(name: "grant_type", value: ""),
             URLQueryItem(name: "username", value: username),
             URLQueryItem(name: "password", value: password)
         ]
         
-        let formData = formComponents.percentEncodedQuery!.data(using: .utf8)!
+        struct FormDataError: LocalizedError {
+            var errorDescription: String? { "Unable to create form data" }
+        }
+        
+        guard let formData = formComponents.percentEncodedQuery?.data(using: .utf8) else {
+            throw FormDataError()
+        }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
