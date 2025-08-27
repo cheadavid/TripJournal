@@ -32,11 +32,19 @@ extension LiveJournalService {
         request.httpBody = jsonData
         
         let (data, _) = try await session.data(for: request)
-        let token = try JSONDecoder().decode(Token.self, from: data)
         
-        self.token = token
-        
-        return token
+        do {
+            let token = try JSONDecoder().decode(Token.self, from: data)
+            self.token = token
+            
+            return token
+        } catch {
+            if let apiError = try? JSONDecoder().decode(ApiError.self, from: data) {
+                throw apiError
+            }
+            
+            throw error
+        }
     }
     
     func logIn(username: String, password: String) async throws -> Token {
@@ -57,14 +65,20 @@ extension LiveJournalService {
         request.httpBody = formData
         
         let (data, _) = try await session.data(for: request)
-        let token = try JSONDecoder().decode(Token.self, from: data)
         
-        self.token = token
-        
-        return token
+        do {
+            let token = try JSONDecoder().decode(Token.self, from: data)
+            self.token = token
+            
+            return token
+        } catch {
+            if let apiError = try? JSONDecoder().decode(ApiError.self, from: data) {
+                throw apiError
+            }
+            
+            throw error
+        }
     }
     
-    func logOut() {
-        token = nil
-    }
+    func logOut() { token = nil }
 }

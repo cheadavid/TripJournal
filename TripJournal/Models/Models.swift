@@ -48,3 +48,9 @@ struct Media: Identifiable, Sendable, Hashable {
     var id: Int
     var url: URL?
 }
+
+struct ApiError: Codable, LocalizedError {
+    let detail: String
+    
+    var errorDescription: String? { detail }
+}
