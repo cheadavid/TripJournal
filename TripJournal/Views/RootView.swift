@@ -1,15 +1,22 @@
 import SwiftUI
 
 struct RootView: View {
-    let service: JournalService
-
+    
+    // MARK: - Environments
+    
+    @Environment(\.journalService) private var journalService
+    
+    // MARK: - States
+    
     @State private var addAction: () -> Void = {}
     @State private var isAuthenticated = false
-
-    @Environment(\.journalService) private var journalService
-
+    
+    // MARK: - Properties
+    
+    let service: JournalService
+    
     // MARK: - Body
-
+    
     var body: some View {
         content
             .environment(\.journalService, service)
@@ -17,9 +24,9 @@ struct RootView: View {
                 self.isAuthenticated = isAuthenticated
             }
     }
-
+    
     // MARK: - Views
-
+    
     @ViewBuilder
     private var content: some View {
         if isAuthenticated {

@@ -96,13 +96,12 @@
 			isa = PBXGroup;
 			children = (
 				075A90E22B446996009A1DCB /* App.swift */,
-				075A90F02B4469C0009A1DCB /* RootView.swift */,
 				075A90E62B446997009A1DCB /* Assets.xcassets */,
-				07AA89D42B5F242B00405269 /* Auth */,
-				07AA89D52B5F243B00405269 /* Events */,
+				639B9D412E8B1550006CCA99 /* Views */,
 				07BCBA8C2B5D65ED00C6F687 /* JournalService */,
-				07BCBA8D2B5D666E00C6F687 /* LocationPicker */,
 				07AA89D82B5F256800405269 /* Models */,
+				07AA89D52B5F243B00405269 /* Events */,
+				07BCBA8D2B5D666E00C6F687 /* LocationPicker */,
 				07AA89D22B5F241200405269 /* Trips */,
 				07AA89D32B5F242100405269 /* Utils */,
 			);
@@ -129,14 +128,6 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		07AA89D42B5F242B00405269 /* Auth */ = {
-			isa = PBXGroup;
-			children = (
-				075A91002B446B17009A1DCB /* AuthView.swift */,
-			);
-			path = Auth;
-			sourceTree = "<group>";
-		};
 		07AA89D52B5F243B00405269 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,8 +142,8 @@
 		07AA89D82B5F256800405269 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0703FC712B457EF40084DD8A /* Models.swift */,
 				07AA89D62B5F251800405269 /* Requests.swift */,
+				0703FC712B457EF40084DD8A /* Models.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -162,9 +153,9 @@
 			children = (
 				0703FC732B4583B80084DD8A /* JournalService.swift */,
 				07BCBA8A2B5D65D200C6F687 /* JournalService+Environment.swift */,
-				07BCBA862B5D656E00C6F687 /* JournalService+Mock.swift */,
 				07BCBA882B5D65AD00C6F687 /* JournalService+Unimplemented.swift */,
-				635CDA072E5B4EAE0011C587 /* LiveJournalService */,
+				07BCBA862B5D656E00C6F687 /* JournalService+Mock.swift */,
+				639B9D402E8B0D76006CCA99 /* LiveJournalService */,
 			);
 			path = JournalService;
 			sourceTree = "<group>";
@@ -179,7 +170,7 @@
 			path = LocationPicker;
 			sourceTree = "<group>";
 		};
-		635CDA072E5B4EAE0011C587 /* LiveJournalService */ = {
+		639B9D402E8B0D76006CCA99 /* LiveJournalService */ = {
 			isa = PBXGroup;
 			children = (
 				638B4B002E5B30210057368E /* JournalService+Live.swift */,
@@ -187,6 +178,15 @@
 				63749D6E2E5F5D03008BF190 /* LiveJournalService+Trips.swift */,
 			);
 			path = LiveJournalService;
+			sourceTree = "<group>";
+		};
+		639B9D412E8B1550006CCA99 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				075A90F02B4469C0009A1DCB /* RootView.swift */,
+				075A91002B446B17009A1DCB /* AuthView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
