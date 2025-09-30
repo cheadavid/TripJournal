@@ -12,8 +12,6 @@ extension LiveJournalService {
     // MARK: - Methods
     
     func getTrips() async throws -> [Trip] {
-        let url = baseURL.appendingPathComponent("trips")
-        
         guard let token = token else {
             struct AuthenticationError: LocalizedError {
                 var errorDescription: String? { "No authentication token available" }
@@ -21,6 +19,8 @@ extension LiveJournalService {
             
             throw AuthenticationError()
         }
+        
+        let url = baseURL.appendingPathComponent("trips")
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -44,11 +44,20 @@ extension LiveJournalService {
     }
     
     func createTrip(with request: TripCreate) async throws -> Trip {
+        guard let token = token else {
+            struct AuthenticationError: LocalizedError {
+                var errorDescription: String? { "No authentication token available" }
+            }
+            
+            throw AuthenticationError()
+        }
+        
         let url = baseURL.appendingPathComponent("trips")
         let jsonData = try JSONEncoder().encode(request)
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
+        request.setValue("Bearer \(token.accessToken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
         
