@@ -11,20 +11,20 @@ struct TripDetails: View {
         _addAction = addAction
         self.deletionHandler = deletionHandler
     }
-
+    
     private let deletionHandler: () -> Void
-
+    
     @Binding private var addAction: () -> Void
-
+    
     @State private var trip: Trip
     @State private var eventFormMode: EventForm.Mode?
     @State private var isDeleteConfirmationPresented = false
     @State private var isLoading = false
     @State private var error: Error?
-
+    
     @Environment(\.dismiss) private var dismiss
     @Environment(\.journalService) private var journalService
-
+    
     var body: some View {
         contentView
             .onAppear {
@@ -52,7 +52,7 @@ struct TripDetails: View {
             }
             .loadingOverlay(isLoading)
     }
-
+    
     @ToolbarContentBuilder
     private func toolbar() -> some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
@@ -62,7 +62,7 @@ struct TripDetails: View {
             .tint(.red)
         }
     }
-
+    
     @ViewBuilder
     private var contentView: some View {
         if trip.events.isEmpty {
@@ -71,7 +71,7 @@ struct TripDetails: View {
             eventsView
         }
     }
-
+    
     private var eventsView: some View {
         ScrollView(.vertical) {
             ForEach(trip.events) { event in
@@ -95,7 +95,7 @@ struct TripDetails: View {
             await reloadTrip()
         }
     }
-
+    
     private var emptyView: some View {
         ContentUnavailableView(
             label: {
@@ -107,9 +107,9 @@ struct TripDetails: View {
             }
         )
     }
-
+    
     // MARK: - Networking
-
+    
     private func uploadMedia(eventId: Event.ID, data: Data) async {
         isLoading = true
         let request = MediaCreate(eventId: eventId, base64Data: data)
@@ -121,7 +121,7 @@ struct TripDetails: View {
         }
         isLoading = false
     }
-
+    
     private func deleteMedia(withId mediaId: Media.ID) async {
         isLoading = true
         do {
@@ -132,7 +132,7 @@ struct TripDetails: View {
         }
         isLoading = false
     }
-
+    
     private func reloadTrip() async {
         let id = trip.id
         do {
@@ -142,7 +142,7 @@ struct TripDetails: View {
             self.error = error
         }
     }
-
+    
     private func deleteTrip() async {
         isLoading = true
         do {

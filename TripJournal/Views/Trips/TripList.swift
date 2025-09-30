@@ -2,17 +2,17 @@ import SwiftUI
 
 struct TripList: View {
     @Binding var addAction: () -> Void
-
+    
     @State private var trips: [Trip] = []
     @State private var isLoading = false
     @State private var error: Error?
     @State private var tripFormMode: TripForm.Mode?
     @State private var isLogoutConfirmationDialogPresented = false
-
+    
     @Environment(\.journalService) private var journalService
-
+    
     // MARK: - Body
-
+    
     var body: some View {
         NavigationStack {
             content
@@ -55,9 +55,9 @@ struct TripList: View {
             await fetchTrips()
         }
     }
-
+    
     // MARK: - Views
-
+    
     @ToolbarContentBuilder
     private func toolbar() -> some ToolbarContent {
         ToolbarItem(placement: .cancellationAction) {
@@ -66,7 +66,7 @@ struct TripList: View {
             }
         }
     }
-
+    
     @ViewBuilder
     private var content: some View {
         if let error {
@@ -77,7 +77,7 @@ struct TripList: View {
             listView
         }
     }
-
+    
     private func errorView(for error: Error) -> some View {
         ContentUnavailableView(
             label: {
@@ -95,7 +95,7 @@ struct TripList: View {
             }
         )
     }
-
+    
     private var emptyView: some View {
         ContentUnavailableView(
             label: {
@@ -107,7 +107,7 @@ struct TripList: View {
             }
         )
     }
-
+    
     private var listView: some View {
         List {
             ForEach(trips) { trip in
@@ -128,9 +128,9 @@ struct TripList: View {
             await fetchTrips()
         }
     }
-
+    
     // MARK: - Networking
-
+    
     private func fetchTrips() async {
         if trips.isEmpty {
             isLoading = true
@@ -143,7 +143,7 @@ struct TripList: View {
         }
         isLoading = false
     }
-
+    
     private func deleteTrip(withId id: Trip.ID) async {
         isLoading = true
         do {

@@ -42,4 +42,26 @@ extension LiveJournalService {
             throw error
         }
     }
+    
+    func createTrip(with request: TripCreate) async throws -> Trip {
+        let url = baseURL.appendingPathComponent("trips")
+        let jsonData = try JSONEncoder().encode(request)
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        
+        let (data, _) = try await session.data(for: request)
+        
+        do {
+            return try JSONDecoder().decode(Trip.self, from: data)
+        } catch {
+            if let apiError = try? JSONDecoder().decode(ApiError.self, from: data) {
+                throw apiError
+            }
+            
+            throw error
+        }
+    }
 }

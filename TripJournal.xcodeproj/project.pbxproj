@@ -102,7 +102,6 @@
 				07AA89D82B5F256800405269 /* Models */,
 				07AA89D52B5F243B00405269 /* Events */,
 				07BCBA8D2B5D666E00C6F687 /* LocationPicker */,
-				07AA89D22B5F241200405269 /* Trips */,
 				07AA89D32B5F242100405269 /* Utils */,
 			);
 			path = TripJournal;
@@ -185,6 +184,7 @@
 			children = (
 				075A90F02B4469C0009A1DCB /* RootView.swift */,
 				075A91002B446B17009A1DCB /* AuthView.swift */,
+				07AA89D22B5F241200405269 /* Trips */,
 			);
 			path = Views;
 			sourceTree = "<group>";

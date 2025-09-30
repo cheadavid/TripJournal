@@ -6,7 +6,7 @@ struct UserCreate: Codable {
 }
 
 /// An object that can be used to create a new trip.
-struct TripCreate {
+struct TripCreate: Codable {
     let name: String
     let startDate: Date
     let endDate: Date

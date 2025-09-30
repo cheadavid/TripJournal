@@ -5,7 +5,7 @@ struct TripForm: View {
     enum Mode: Hashable, Identifiable {
         case add
         case edit(Trip)
-
+        
         var id: String {
             switch self {
             case .add:
@@ -15,23 +15,23 @@ struct TripForm: View {
             }
         }
     }
-
+    
     /// Describes validation errors that might occur locally in the form.
     struct ValidationError: LocalizedError {
         var errorDescription: String?
-
+        
         static let emptyName = Self(errorDescription: "Please enter a name.")
         static let invalidDates = Self(errorDescription: "Start date should be before end date.")
     }
-
+    
     init(mode: Mode, updateHandler: @escaping () -> Void) {
         self.mode = mode
         self.updateHandler = updateHandler
-
+        
         switch mode {
         case .add:
             title = "Add Trip"
-
+            
         case let .edit(trip):
             title = "Edit \(trip.name)"
             _name = .init(initialValue: trip.name)
@@ -39,22 +39,22 @@ struct TripForm: View {
             _endDate = .init(initialValue: trip.endDate)
         }
     }
-
+    
     private let mode: Mode
     private let updateHandler: () -> Void
     private let title: String
-
+    
     @State private var name: String = ""
     @State private var startDate: Date = .now
     @State private var endDate: Date = .now
     @State private var isLoading = false
     @State private var error: Error?
-
+    
     @Environment(\.dismiss) private var dismiss
     @Environment(\.journalService) private var journalService
-
+    
     // MARK: - Body
-
+    
     var body: some View {
         NavigationView {
             form
@@ -66,9 +66,9 @@ struct TripForm: View {
                 .loadingOverlay(isLoading)
         }
     }
-
+    
     // MARK: - Views
-
+    
     private var form: some View {
         Form {
             Section("Name") {
@@ -80,7 +80,7 @@ struct TripForm: View {
             }
         }
     }
-
+    
     @ViewBuilder
     private func deleteButton() -> some View {
         if case let .edit(trip) = mode {
@@ -96,7 +96,7 @@ struct TripForm: View {
                 )
                 .ignoresSafeArea()
                 .frame(height: 100)
-
+                
                 Button("Delete Trip", systemImage: "trash", role: .destructive) {
                     Task {
                         await deleteTrip(withId: trip.id)
@@ -106,7 +106,7 @@ struct TripForm: View {
             }
         }
     }
-
+    
     @ToolbarContentBuilder
     private func toolbar() -> some ToolbarContent {
         ToolbarItem(placement: .cancellationAction) {
@@ -129,9 +129,9 @@ struct TripForm: View {
             }
         }
     }
-
+    
     // MARK: - Networking
-
+    
     private func validateForm() throws {
         if name.nonEmpty == nil {
             throw ValidationError.emptyName
@@ -140,7 +140,7 @@ struct TripForm: View {
             throw ValidationError.invalidDates
         }
     }
-
+    
     private func addTrip() async {
         isLoading = true
         do {
@@ -156,7 +156,7 @@ struct TripForm: View {
         }
         isLoading = false
     }
-
+    
     private func editTrip(withId id: Trip.ID) async {
         isLoading = true
         do {
@@ -172,7 +172,7 @@ struct TripForm: View {
         }
         isLoading = false
     }
-
+    
     private func deleteTrip(withId id: Trip.ID) async {
         isLoading = true
         do {
