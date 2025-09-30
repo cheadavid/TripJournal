@@ -22,12 +22,12 @@ extension LiveJournalService {
         
         let url = baseURL.appendingPathComponent("trips")
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("Bearer \(token.accessToken)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+        urlRequest.setValue("Bearer \(token.accessToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
         
-        let (data, _) = try await session.data(for: request)
+        let (data, _) = try await session.data(for: urlRequest)
         
         do {
             let decoder = JSONDecoder()
@@ -43,7 +43,7 @@ extension LiveJournalService {
         }
     }
     
-    func createTrip(with request: TripCreate) async throws -> Trip {
+    func createTrip(with tripCreate: TripCreate) async throws -> Trip {
         guard let token = token else {
             struct AuthenticationError: LocalizedError {
                 var errorDescription: String? { "No authentication token available" }
@@ -53,18 +53,24 @@ extension LiveJournalService {
         }
         
         let url = baseURL.appendingPathComponent("trips")
-        let jsonData = try JSONEncoder().encode(request)
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("Bearer \(token.accessToken)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonData
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        let jsonData = try encoder.encode(tripCreate)
         
-        let (data, _) = try await session.data(for: request)
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue("Bearer \(token.accessToken)", forHTTPHeaderField: "Authorization")
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpBody = jsonData
+        
+        let (data, _) = try await session.data(for: urlRequest)
         
         do {
-            return try JSONDecoder().decode(Trip.self, from: data)
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            
+            return try decoder.decode(Trip.self, from: data)
         } catch {
             if let apiError = try? JSONDecoder().decode(ApiError.self, from: data) {
                 throw apiError

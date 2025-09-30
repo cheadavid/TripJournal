@@ -145,8 +145,8 @@ struct TripForm: View {
         isLoading = true
         do {
             try validateForm()
-            let request = TripCreate(name: name, startDate: startDate, endDate: endDate)
-            try await journalService.createTrip(with: request)
+            let tripCreate = TripCreate(name: name, startDate: startDate, endDate: endDate)
+            try await journalService.createTrip(with: tripCreate)
             await MainActor.run {
                 updateHandler()
                 dismiss()
