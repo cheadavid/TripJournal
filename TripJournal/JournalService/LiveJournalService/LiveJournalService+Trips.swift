@@ -43,8 +43,34 @@ extension LiveJournalService {
     }
     
     func getTrip(withId tripId: Trip.ID) async throws -> Trip {
-        // TODO: Implement
-        fatalError("Not implemented yet")
+        guard let token = token else {
+            struct AuthenticationError: LocalizedError {
+                var errorDescription: String? { "No authentication token available" }
+            }
+            
+            throw AuthenticationError()
+        }
+        
+        let url = baseURL.appendingPathComponent("trips").appendingPathComponent("\(tripId)")
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+        urlRequest.setValue("Bearer \(token.accessToken)", forHTTPHeaderField: "Authorization")
+        
+        let (data, _) = try await session.data(for: urlRequest)
+        
+        do {
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            
+            return try decoder.decode(Trip.self, from: data)
+        } catch {
+            if let apiError = try? JSONDecoder().decode(ApiError.self, from: data) {
+                throw apiError
+            }
+            
+            throw error
+        }
     }
     
     func createTrip(with tripCreate: TripCreate) async throws -> Trip {
