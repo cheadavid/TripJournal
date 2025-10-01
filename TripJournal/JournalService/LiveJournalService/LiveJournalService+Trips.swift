@@ -42,6 +42,11 @@ extension LiveJournalService {
         }
     }
     
+    func getTrip(withId tripId: Trip.ID) async throws -> Trip {
+        // TODO: Implement
+        fatalError("Not implemented yet")
+    }
+    
     func createTrip(with tripCreate: TripCreate) async throws -> Trip {
         guard let token = token else {
             struct AuthenticationError: LocalizedError {

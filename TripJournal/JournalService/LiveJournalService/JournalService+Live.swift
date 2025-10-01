@@ -28,11 +28,6 @@ class LiveJournalService: JournalService {
     
     // MARK: - Trip Management (Empty implementations for testing)
     
-    func getTrip(withId tripId: Trip.ID) async throws -> Trip {
-        // TODO: Implement
-        fatalError("Not implemented yet")
-    }
-    
     func deleteTrip(withId tripId: Trip.ID) async throws {
         // TODO: Implement
         fatalError("Not implemented yet")
