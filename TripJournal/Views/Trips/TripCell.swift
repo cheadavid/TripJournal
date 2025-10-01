@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct TripCell: View {
+    
+    // MARK: - Properties
+    
     let trip: Trip
     let edit: () -> Void
     let delete: () -> Void

@@ -79,4 +79,9 @@ extension LiveJournalService {
             throw error
         }
     }
+    
+    func updateTrip(withId tripId: Trip.ID, and request: TripUpdate) async throws -> Trip {
+        // TODO: Implement
+        fatalError("Not implemented yet")
+    }
 }

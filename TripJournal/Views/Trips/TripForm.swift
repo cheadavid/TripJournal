@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct TripForm: View {
+    
     /// Determines if the form is being used to add a new trip or edit an existing one.
     enum Mode: Hashable, Identifiable {
         case add
@@ -24,6 +25,27 @@ struct TripForm: View {
         static let invalidDates = Self(errorDescription: "Start date should be before end date.")
     }
     
+    // MARK: - Environments
+    
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.journalService) private var journalService
+    
+    // MARK: - States
+    
+    @State private var name: String = ""
+    @State private var startDate: Date = .now
+    @State private var endDate: Date = .now
+    @State private var isLoading = false
+    @State private var error: Error?
+    
+    // MARK: - Properties
+    
+    private let mode: Mode
+    private let updateHandler: () -> Void
+    private let title: String
+    
+    // MARK: - Initialization
+    
     init(mode: Mode, updateHandler: @escaping () -> Void) {
         self.mode = mode
         self.updateHandler = updateHandler
@@ -39,19 +61,6 @@ struct TripForm: View {
             _endDate = .init(initialValue: trip.endDate)
         }
     }
-    
-    private let mode: Mode
-    private let updateHandler: () -> Void
-    private let title: String
-    
-    @State private var name: String = ""
-    @State private var startDate: Date = .now
-    @State private var endDate: Date = .now
-    @State private var isLoading = false
-    @State private var error: Error?
-    
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.journalService) private var journalService
     
     // MARK: - Body
     
@@ -130,7 +139,7 @@ struct TripForm: View {
         }
     }
     
-    // MARK: - Networking
+    // MARK: - Methods
     
     private func validateForm() throws {
         if name.nonEmpty == nil {
@@ -140,6 +149,8 @@ struct TripForm: View {
             throw ValidationError.invalidDates
         }
     }
+    
+    // MARK: - Networking
     
     private func addTrip() async {
         isLoading = true

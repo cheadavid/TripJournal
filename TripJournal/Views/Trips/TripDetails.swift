@@ -2,6 +2,30 @@ import MapKit
 import SwiftUI
 
 struct TripDetails: View {
+    
+    // MARK: - Environments
+    
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.journalService) private var journalService
+    
+    // MARK: - Bindings
+    
+    @Binding private var addAction: () -> Void
+    
+    // MARK: - States
+    
+    @State private var trip: Trip
+    @State private var eventFormMode: EventForm.Mode?
+    @State private var isDeleteConfirmationPresented = false
+    @State private var isLoading = false
+    @State private var error: Error?
+    
+    // MARK: - Properties
+    
+    private let deletionHandler: () -> Void
+    
+    // MARK: - Initialization
+    
     init(
         trip: Trip,
         addAction: Binding<() -> Void>,
@@ -12,18 +36,7 @@ struct TripDetails: View {
         self.deletionHandler = deletionHandler
     }
     
-    private let deletionHandler: () -> Void
-    
-    @Binding private var addAction: () -> Void
-    
-    @State private var trip: Trip
-    @State private var eventFormMode: EventForm.Mode?
-    @State private var isDeleteConfirmationPresented = false
-    @State private var isLoading = false
-    @State private var error: Error?
-    
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.journalService) private var journalService
+    // MARK: - Body
     
     var body: some View {
         contentView
@@ -52,6 +65,8 @@ struct TripDetails: View {
             }
             .loadingOverlay(isLoading)
     }
+    
+    // MARK: - Views
     
     @ToolbarContentBuilder
     private func toolbar() -> some ToolbarContent {

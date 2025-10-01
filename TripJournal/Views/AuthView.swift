@@ -103,6 +103,8 @@ struct AuthView: View {
         }
     }
     
+    // MARK: - Networking
+    
     private func logIn() async {
         isLoading = true
         do {

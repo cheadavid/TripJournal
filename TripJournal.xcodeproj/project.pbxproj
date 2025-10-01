@@ -111,9 +111,9 @@
 			isa = PBXGroup;
 			children = (
 				075A90F22B446A18009A1DCB /* TripList.swift */,
+				075A90F82B446A6F009A1DCB /* TripCell.swift */,
 				075A90F42B446A41009A1DCB /* TripDetails.swift */,
 				075A90F62B446A5C009A1DCB /* TripForm.swift */,
-				075A90F82B446A6F009A1DCB /* TripCell.swift */,
 			);
 			path = Trips;
 			sourceTree = "<group>";

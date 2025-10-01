@@ -1,15 +1,22 @@
 import SwiftUI
 
 struct TripList: View {
+    
+    // MARK: - Environments
+    
+    @Environment(\.journalService) private var journalService
+    
+    // MARK: - Bindings
+    
     @Binding var addAction: () -> Void
+    
+    // MARK: - States
     
     @State private var trips: [Trip] = []
     @State private var isLoading = false
     @State private var error: Error?
     @State private var tripFormMode: TripForm.Mode?
     @State private var isLogoutConfirmationDialogPresented = false
-    
-    @Environment(\.journalService) private var journalService
     
     // MARK: - Body
     

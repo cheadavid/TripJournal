@@ -33,11 +33,6 @@ class LiveJournalService: JournalService {
         fatalError("Not implemented yet")
     }
     
-    func updateTrip(withId tripId: Trip.ID, and request: TripUpdate) async throws -> Trip {
-        // TODO: Implement
-        fatalError("Not implemented yet")
-    }
-    
     func deleteTrip(withId tripId: Trip.ID) async throws {
         // TODO: Implement
         fatalError("Not implemented yet")
