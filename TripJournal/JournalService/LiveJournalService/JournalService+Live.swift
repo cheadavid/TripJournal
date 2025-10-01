@@ -26,13 +26,6 @@ class LiveJournalService: JournalService {
         self.session = session
     }
     
-    // MARK: - Trip Management (Empty implementations for testing)
-    
-    func deleteTrip(withId tripId: Trip.ID) async throws {
-        // TODO: Implement
-        fatalError("Not implemented yet")
-    }
-    
     // MARK: - Event Management (Empty implementations for testing)
     
     func createEvent(with request: EventCreate) async throws -> Event {
