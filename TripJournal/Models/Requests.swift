@@ -32,26 +32,42 @@ struct TripUpdate: Codable {
 }
 
 /// An object that can be used to create a media.
-struct MediaCreate {
+struct MediaCreate: Codable {
     let eventId: Event.ID
     let base64Data: Data
+    
+    enum CodingKeys: String, CodingKey {
+        case eventId = "event_id"
+        case base64Data = "base64_data"
+    }
 }
 
 /// An object that can be used to create a new event.
-struct EventCreate {
+struct EventCreate: Codable {
     let tripId: Trip.ID
     let name: String
     let note: String?
     let date: Date
     let location: Location?
     let transitionFromPrevious: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case name, note, date, location
+        case tripId = "trip_id"
+        case transitionFromPrevious = "transition_from_previous"
+    }
 }
 
 /// An object that can be used to update an existing event.
-struct EventUpdate {
+struct EventUpdate: Codable {
     var name: String
     var note: String?
     var date: Date
     var location: Location?
     var transitionFromPrevious: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case name, note, date, location
+        case transitionFromPrevious = "transition_from_previous"
+    }
 }

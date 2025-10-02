@@ -32,6 +32,8 @@
 		07F6695D2B589A1E002F8D18 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F6695C2B589A1E002F8D18 /* AddButton.swift */; };
 		635CDA042E5B46430011C587 /* LiveJournalService+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635CDA032E5B46430011C587 /* LiveJournalService+Auth.swift */; };
 		63749D6F2E5F5D03008BF190 /* LiveJournalService+Trips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63749D6E2E5F5D03008BF190 /* LiveJournalService+Trips.swift */; };
+		638A63EF2E8F0FCC008F0457 /* LiveJournalService+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A63EE2E8F0FCC008F0457 /* LiveJournalService+Events.swift */; };
+		638A63F12E8F2141008F0457 /* LiveJournalService+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A63F02E8F2141008F0457 /* LiveJournalService+Media.swift */; };
 		638B4B012E5B30210057368E /* JournalService+Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638B4B002E5B30210057368E /* JournalService+Live.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +64,8 @@
 		07F6695C2B589A1E002F8D18 /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		635CDA032E5B46430011C587 /* LiveJournalService+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveJournalService+Auth.swift"; sourceTree = "<group>"; };
 		63749D6E2E5F5D03008BF190 /* LiveJournalService+Trips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveJournalService+Trips.swift"; sourceTree = "<group>"; };
+		638A63EE2E8F0FCC008F0457 /* LiveJournalService+Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveJournalService+Events.swift"; sourceTree = "<group>"; };
+		638A63F02E8F2141008F0457 /* LiveJournalService+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveJournalService+Media.swift"; sourceTree = "<group>"; };
 		638B4B002E5B30210057368E /* JournalService+Live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JournalService+Live.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -175,6 +179,8 @@
 				638B4B002E5B30210057368E /* JournalService+Live.swift */,
 				635CDA032E5B46430011C587 /* LiveJournalService+Auth.swift */,
 				63749D6E2E5F5D03008BF190 /* LiveJournalService+Trips.swift */,
+				638A63EE2E8F0FCC008F0457 /* LiveJournalService+Events.swift */,
+				638A63F02E8F2141008F0457 /* LiveJournalService+Media.swift */,
 			);
 			path = LiveJournalService;
 			sourceTree = "<group>";
@@ -276,9 +282,11 @@
 				07BCBA872B5D656E00C6F687 /* JournalService+Mock.swift in Sources */,
 				0767E7102B573F6300993870 /* LocationSearchView.swift in Sources */,
 				075A90FB2B446A80009A1DCB /* EventCell.swift in Sources */,
+				638A63EF2E8F0FCC008F0457 /* LiveJournalService+Events.swift in Sources */,
 				07BCBA8F2B5D7EC500C6F687 /* MediaCarousel.swift in Sources */,
 				07F6695D2B589A1E002F8D18 /* AddButton.swift in Sources */,
 				075A90F52B446A41009A1DCB /* TripDetails.swift in Sources */,
+				638A63F12E8F2141008F0457 /* LiveJournalService+Media.swift in Sources */,
 				638B4B012E5B30210057368E /* JournalService+Live.swift in Sources */,
 				075A90F32B446A18009A1DCB /* TripList.swift in Sources */,
 				07BCBA8B2B5D65D200C6F687 /* JournalService+Environment.swift in Sources */,
