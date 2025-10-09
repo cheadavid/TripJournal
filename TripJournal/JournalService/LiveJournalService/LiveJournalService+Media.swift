@@ -12,24 +12,9 @@ extension LiveJournalService {
     // MARK: - Methods
     
     func createMedia(with mediaCreate: MediaCreate) async throws -> Media {
-        guard let token = token else {
-            struct AuthenticationError: LocalizedError {
-                var errorDescription: String? { "No authentication token available" }
-            }
-            
-            throw AuthenticationError()
-        }
-        
-        let url = baseURL.appendingPathComponent("media")
         let jsonData = try JSONEncoder().encode(mediaCreate)
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "POST"
-        urlRequest.setValue("Bearer \(token.accessToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        urlRequest.httpBody = jsonData
-        
-        let (data, _) = try await session.data(for: urlRequest)
+        let request = try makeRequest(path: "media", method: "POST", body: jsonData)
+        let (data, _) = try await session.data(for: request)
         
         do {
             return try JSONDecoder().decode(Media.self, from: data)
@@ -43,21 +28,8 @@ extension LiveJournalService {
     }
     
     func deleteMedia(withId mediaId: Media.ID) async throws {
-        guard let token = token else {
-            struct AuthenticationError: LocalizedError {
-                var errorDescription: String? { "No authentication token available" }
-            }
-            
-            throw AuthenticationError()
-        }
-        
-        let url = baseURL.appendingPathComponent("media").appendingPathComponent("\(mediaId)")
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "DELETE"
-        urlRequest.setValue("Bearer \(token.accessToken)", forHTTPHeaderField: "Authorization")
-        
-        let (data, response) = try await session.data(for: urlRequest)
+        let request = try makeRequest(path: "media/\(mediaId)", method: "DELETE")
+        let (data, response) = try await session.data(for: request)
         
         if let httpResponse = response as? HTTPURLResponse {
             if httpResponse.statusCode == 204 || httpResponse.statusCode == 200 {

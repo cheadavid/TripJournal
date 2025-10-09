@@ -21,16 +21,10 @@ extension LiveJournalService {
     // MARK: - Methods
     
     func register(username: String, password: String) async throws -> Token {
-        let url = baseURL.appendingPathComponent("register")
-        
         let requestBody = UserCreate(username: username, password: password)
         let jsonData = try JSONEncoder().encode(requestBody)
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonData
-        
+        let request = try makeRequest(path: "register", method: "POST", body: jsonData, requiresAuth: false)
         let (data, _) = try await session.data(for: request)
         
         do {
@@ -48,27 +42,21 @@ extension LiveJournalService {
     }
     
     func logIn(username: String, password: String) async throws -> Token {
-        let url = baseURL.appendingPathComponent("token")
-        
         var formComponents = URLComponents()
         formComponents.queryItems = [
             URLQueryItem(name: "username", value: username),
             URLQueryItem(name: "password", value: password)
         ]
         
-        struct FormDataError: LocalizedError {
-            var errorDescription: String? { "Unable to create form data" }
-        }
-        
         guard let formData = formComponents.percentEncodedQuery?.data(using: .utf8) else {
+            struct FormDataError: LocalizedError {
+                var errorDescription: String? { "Unable to create form data" }
+            }
+            
             throw FormDataError()
         }
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.httpBody = formData
-        
+        let request = try makeRequest(path: "token", method: "POST", body: formData, requiresAuth: false, contentType: "application/x-www-form-urlencoded")
         let (data, _) = try await session.data(for: request)
         
         do {

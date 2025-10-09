@@ -24,4 +24,43 @@ class LiveJournalService: JournalService {
         self.baseURL = baseURL
         self.session = session
     }
+    
+    // MARK: - Methods
+    
+    func makeRequest(
+        path: String,
+        method: String,
+        body: Data? = nil,
+        requiresAuth: Bool = true,
+        contentType: String? = "application/json"
+    ) throws -> URLRequest {
+        if requiresAuth {
+            guard token != nil else {
+                struct AuthenticationError: LocalizedError {
+                    var errorDescription: String? { "No authentication token available" }
+                }
+                
+                throw AuthenticationError()
+            }
+        }
+        
+        let url = baseURL.appendingPathComponent(path)
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = method
+        
+        if requiresAuth, let token = token {
+            request.setValue("Bearer \(token.accessToken)", forHTTPHeaderField: "Authorization")
+        }
+        
+        if let contentType = contentType {
+            request.setValue(contentType, forHTTPHeaderField: "Content-Type")
+        }
+        
+        if let body = body {
+            request.httpBody = body
+        }
+        
+        return request
+    }
 }
